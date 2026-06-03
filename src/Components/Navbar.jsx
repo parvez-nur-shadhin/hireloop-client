@@ -22,7 +22,7 @@ function Navbar() {
   );
 
   return (
-    <nav className="sticky top-0 z-40 max-w-330 mx-auto w-full border-b border-separator bg-background/70 backdrop-blur-lg rounded-xl">
+    <nav className="sticky top-6 z-40 max-w-330 mx-auto w-full border-b border-separator bg-background/70 backdrop-blur-lg rounded-xl">
       <header className="flex h-16 items-center justify-between px-6">
         <div className="flex items-center gap-4">
           <button
@@ -69,7 +69,7 @@ function Navbar() {
           </ul>
           <div className="flex items-center gap-10">
             <Link>
-              <h1 className="text-[#5C53FE] font-semibold text-lg">Sign In</h1>
+              <h1 className={`text-[#5C53FE] font-semibold text-lg hidden md:block`}>Sign In</h1>
             </Link>
             <Link href="#">
               <Button className={"bg-[#5C53FE] rounded-md"}>Get Started</Button>
