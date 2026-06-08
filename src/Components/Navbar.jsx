@@ -68,7 +68,7 @@ function Navbar() {
             {links}
           </ul>
           <div className="flex items-center gap-10">
-            <Link>
+            <Link href="/sign-in">
               <h1 className={`text-[#5C53FE] font-semibold text-lg hidden md:block`}>Sign In</h1>
             </Link>
             <Link href="#">

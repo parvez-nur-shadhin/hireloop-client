@@ -2,6 +2,7 @@ import { Manrope, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
+import { ToastContainer } from "react-toastify";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <ToastContainer />
       </body>
     </html>
   );
