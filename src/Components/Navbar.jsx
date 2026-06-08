@@ -8,7 +8,6 @@ import { authClient } from "@/lib/auth-client";
 function Navbar() {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  const { name } = user;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -74,7 +73,7 @@ function Navbar() {
           </ul>
           <div className="flex items-center gap-10">
             {user ? (
-              <h1 className="font-semibold text-xl text-[#5C53FE] cursor-pointer">{name}</h1>
+              <h1 className="font-semibold text-xl text-[#5C53FE] cursor-pointer">{user?.name}</h1>
             ) : (
               <Link href="/sign-in">
                 <h1
