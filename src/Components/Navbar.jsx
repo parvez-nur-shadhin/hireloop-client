@@ -3,8 +3,13 @@
 import { useState } from "react";
 import { Link, Button } from "@heroui/react";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
 
 function Navbar() {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  const { name } = user;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const links = (
@@ -68,9 +73,17 @@ function Navbar() {
             {links}
           </ul>
           <div className="flex items-center gap-10">
-            <Link href="/sign-in">
-              <h1 className={`text-[#5C53FE] font-semibold text-lg hidden md:block`}>Sign In</h1>
-            </Link>
+            {user ? (
+              <h1 className="font-semibold text-xl text-[#5C53FE] cursor-pointer">{name}</h1>
+            ) : (
+              <Link href="/sign-in">
+                <h1
+                  className={`text-[#5C53FE] font-semibold text-lg hidden md:block`}
+                >
+                  Sign In
+                </h1>
+              </Link>
+            )}
             <Link href="#">
               <Button className={"bg-[#5C53FE] rounded-md"}>Get Started</Button>
             </Link>
