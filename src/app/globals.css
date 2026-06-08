@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
 
+@theme {
+  --font-space-mono: var(--font-space-mono);
+}
+
 body {
   font-family: var(--font-manrope);
 }

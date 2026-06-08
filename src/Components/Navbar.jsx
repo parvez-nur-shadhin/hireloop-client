@@ -22,7 +22,7 @@ function Navbar() {
   );
 
   return (
-    <nav className="sticky top-6 z-40 max-w-330 mx-auto w-full border-b border-separator bg-background/70 backdrop-blur-lg rounded-xl">
+    <nav className="mx-auto w-full border-b border-separator bg-background/70 backdrop-blur-lg">
       <header className="flex h-16 items-center justify-between px-6">
         <div className="flex items-center gap-4">
           <button

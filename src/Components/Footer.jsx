@@ -6,11 +6,9 @@ import { FaFacebook, FaLinkedin, FaPinterest } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-gray-400 overflow-hidden">
+    <footer className="bg-black text-gray-400 min-h-screen">
       {/* CTA Section */}
-      <div
-        className="bg-[url('/cta-bg.png')] bg-cover bg-top bg-no-repeat"
-      >
+      <div className="bg-[url('/cta-bg.png')] bg-cover bg-top bg-no-repeat">
         <div className="max-w-7xl mx-auto px-6 pt-28 pb-20 text-center">
           <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight max-w-4xl mx-auto">
             Your next role is
@@ -149,9 +147,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-20 pt-8 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500">
-            Copyright 2026 — HireLoop
-          </p>
+          <p className="text-sm text-gray-500">Copyright 2026 — HireLoop</p>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
             <Link href="#" className="hover:text-white">
