@@ -9,26 +9,34 @@ import {
   Input,
   Label,
   TextField,
+  Select,
+  ListBox,
 } from "@heroui/react";
 import Link from "next/link";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 const SignUpPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    control,
+  } = useForm({
+    defaultValues: {
+      role: "seeker",
+    },
+  });
 
-  const onSubmit = async(data) => {
-    const {name, email, password} = data;
-    const {data:res, error} = await authClient.signUp.email({
-        name: name,
-        email: email,
-        password: password,
-        callbackURL:'/'
-    })
+  const onSubmit = async (data) => {
+    const { name, email, password, role } = data;
+    const { data: res, error } = await authClient.signUp.email({
+      name: name,
+      email: email,
+      password: password,
+      role: role,
+      callbackURL: "/",
+    });
 
     console.log(res, error);
   };
@@ -42,7 +50,10 @@ const SignUpPage = () => {
         </h2>
       </div>
 
-      <Form className="flex flex-col gap-4 w-full max-w-2xl" onSubmit={handleSubmit(onSubmit)}>
+      <Form
+        className="flex flex-col gap-4 w-full max-w-2xl"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <TextField
           isRequired
           name="name"
@@ -50,7 +61,11 @@ const SignUpPage = () => {
           placeholder="Enter Your Name"
         >
           <Label>Name</Label>
-          <Input className={"p-4"} placeholder="john Doe" {...register("name")} />
+          <Input
+            className={"p-4"}
+            placeholder="john Doe"
+            {...register("name")}
+          />
           <FieldError />
         </TextField>
         <TextField
@@ -65,9 +80,48 @@ const SignUpPage = () => {
           }}
         >
           <Label>Email</Label>
-          <Input className={"p-4"} placeholder="john@example.com" {...register("email")} />
+          <Input
+            className={"p-4"}
+            placeholder="john@example.com"
+            {...register("email")}
+          />
           <FieldError />
         </TextField>
+        <Controller
+          name="role"
+          control={control}
+          render={({ field }) => {
+            return (
+              <Select
+                className="w-full max-w-2xl"
+                placeholder="Select one"
+                label="Select Role"
+                // selectedKeys={field.value ? [field.value] : []}
+                onChange={(selectedValue) => {
+                  field.onChange(selectedValue);
+                }}
+              >
+                <Label>Role</Label>
+                <Select.Trigger>
+                  <Select.Value />
+                  <Select.Indicator />
+                </Select.Trigger>
+                <Select.Popover>
+                  <ListBox>
+                    <ListBox.Item id="seeker" textValue="seeker">
+                      Seeker
+                      <ListBox.ItemIndicator />
+                    </ListBox.Item>
+                    <ListBox.Item id="recruiter" textValue="recruiter">
+                      Recruiter
+                      <ListBox.ItemIndicator />
+                    </ListBox.Item>
+                  </ListBox>
+                </Select.Popover>
+              </Select>
+            );
+          }}
+        />
         <TextField
           isRequired
           minLength={8}
@@ -87,7 +141,11 @@ const SignUpPage = () => {
           }}
         >
           <Label>Password</Label>
-          <Input className={"p-4"} placeholder="Enter your password" {...register("password")} />
+          <Input
+            className={"p-4"}
+            placeholder="Enter your password"
+            {...register("password")}
+          />
           <Description>
             Must be at least 8 characters with 1 uppercase and 1 number
           </Description>
@@ -106,9 +164,19 @@ const SignUpPage = () => {
           </Button>
         </div>
       </Form>
-            <div className="mt-5">
-              <h1>Have an Account? <span ><Link className="text-[#5C53FE] hover:text-[#26209f]" href={"/sign-in"}>Sign In</Link></span></h1>
-            </div>
+      <div className="mt-5">
+        <h1>
+          Have an Account?{" "}
+          <span>
+            <Link
+              className="text-[#5C53FE] hover:text-[#26209f]"
+              href={"/sign-in"}
+            >
+              Sign In
+            </Link>
+          </span>
+        </h1>
+      </div>
     </div>
   );
 };

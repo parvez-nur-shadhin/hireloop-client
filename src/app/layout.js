@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${manrope.variable} ${spaceMono.variable}dark h-full antialiased`}
     >
-      <body className="max-w-360 bg-black mx-auto min-h-full flex flex-col">
+      <body className="max-w-360 bg-black mx-auto min-h-screen flex flex-col">
         <Navbar />
         <main>{children}</main>
         <Footer />

@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="bg-black text-gray-400">
 
       {/* Footer Content */}
-      <div className="max-w-7xl mx-auto px-6 py-20">
+      <div className=" mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo */}
           <div className="space-y-8">
