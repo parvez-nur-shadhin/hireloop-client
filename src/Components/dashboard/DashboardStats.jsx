@@ -2,6 +2,7 @@
 
 import { Card } from "@heroui/react";
 import { FiFileText, FiUsers, FiZap, FiCheckCircle } from "react-icons/fi";
+import { authClient } from "@/lib/auth-client";
 
 const stats = [
   {
@@ -27,33 +28,35 @@ const stats = [
 ];
 
 export default function DashboardStats() {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-      {stats.map((item) => {
-        const Icon = item.icon;
+    <div>
+      <h1 className="font-medium text-3xl p-4 mb-5">Welcome Back, {user?.name}</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+        {stats.map((item) => {
+          const Icon = item.icon;
 
-        return (
-          <Card
-            key={item.label}
-            className="border border-default-200 bg-content1 p-5 flex flex-col gap-4"
-          >
-            {/* icon */}
-            <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-default-100">
-              <Icon size={18} />
-            </div>
+          return (
+            <Card
+              key={item.label}
+              className="border border-default-200 bg-content1 p-5 flex flex-col gap-4"
+            >
+              {/* icon */}
+              <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-default-100">
+                <Icon size={18} />
+              </div>
 
-            {/* content */}
-            <div>
-              <p className="text-small text-default-500">
-                {item.label}
-              </p>
-              <h2 className="text-2xl font-semibold">
-                {item.value}
-              </h2>
-            </div>
-          </Card>
-        );
-      })}
+              {/* content */}
+              <div>
+                <p className="text-small text-default-500">{item.label}</p>
+                <h2 className="text-2xl font-semibold">{item.value}</h2>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
     </div>
   );
 }
