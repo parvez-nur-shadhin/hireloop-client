@@ -3,7 +3,7 @@ import DashboardSidebar from "@/Components/dashboard/DashboardSidebar";
 export default function DashboardLayout({ children }) {
   return (
     <html lang="en" data-theme="dark">
-      <body className="min-h-screen">
+      <body>
         <div className="flex">
           <DashboardSidebar />
           <main className="flex-1">{children}</main>
