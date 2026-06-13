@@ -12,4 +12,4 @@ export const serverMutation = async(path,data) => {
     })
 
     return res.json();
-}
+};

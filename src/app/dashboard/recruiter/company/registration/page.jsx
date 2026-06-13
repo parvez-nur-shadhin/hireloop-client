@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import {
@@ -19,8 +19,16 @@ import {
 import { ChevronDown, Globe, ArrowUpToLine } from "lucide-react";
 import { addCompanies } from "@/lib/actions/jobs";
 import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+import { recruiter } from "@/lib/core/session";
 
 export default function CompanyForm({ company = null }) {
+
+  const {data: session} = authClient.useSession();
+  const user = session?.user;
+
+
   const {
     control,
     register,
@@ -29,6 +37,7 @@ export default function CompanyForm({ company = null }) {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      owner:user?.id,
       companyName: company?.name || "",
       industry: company?.industry || "technology",
       websiteUrl: company?.websiteUrl || "",
@@ -64,6 +73,16 @@ export default function CompanyForm({ company = null }) {
     return data.data.url;
   };
 
+  useEffect(() => {
+    if(user?.id){
+      setValue("owner", user?.id, {
+        shouldValidate: true,
+        shouldDirty: true
+      })
+    }
+  }, [user?.id, setValue]);
+
+
   // ✅ Handle logo upload
   const handleLogoUpload = async (e) => {
     const file = e.target.files?.[0];
@@ -93,8 +112,10 @@ export default function CompanyForm({ company = null }) {
     const res = await addCompanies(data);
 
     if(res.insertedId){
-        toast.success("The company got inserted!")
+        toast.success("The company got inserted!");
     }
+
+    redirect('/dashboard/recruiter/company');
 
   };
 
