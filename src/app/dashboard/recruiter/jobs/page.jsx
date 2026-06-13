@@ -24,7 +24,7 @@ const JobsPage = async () => {
 
             <Table.Body>
               {jobs.map((job) => (
-                <Table.Row key={job.id}>
+                <Table.Row key={job._id}>
                   <Table.Cell>
                     <div>
                       <p className="font-medium">{job.jobTitle}</p>

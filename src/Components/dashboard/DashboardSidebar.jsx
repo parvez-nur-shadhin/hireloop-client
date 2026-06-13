@@ -9,13 +9,14 @@ import { SlMagnifier } from "react-icons/sl";
 export default function DashboardSidebar() {
   const navItems = [
     { icon: BsHouse, label: "Home", href: "/" },
-    { icon: SlMagnifier, label: "Search", href: "/search" },
-    { icon: BiBell, label: "Notifications", href: "/notification" },
+    { icon: SlMagnifier, label: "Jobs", href: "/dashboard/recruiter/jobs" },
     {
       icon: FaPlus,
       label: "Add Jobs",
       href: "/dashboard/recruiter/jobs/add-jobs",
     },
+    { icon: BiBell, label: "Company Profile", href: "/dashboard/recruiter/company" },
+
     { icon: BiEnvelope, label: "Messages", href: "/" },
     { icon: BsPerson, label: "Profile", href: "/" },
     { icon: FaGear, label: "Settings", href: "/" },
