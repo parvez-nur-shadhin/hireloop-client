@@ -1,4 +1,5 @@
 import { Card, Chip, Button } from "@heroui/react";
+import Link from "next/link";
 import {
   FiBookmark,
   FiMapPin,
@@ -19,6 +20,7 @@ const JobCard = ({ job }) => {
 
   return (
     <div>
+        <Link href={`/jobs/${job._id}`}>
       <Card className="border border-default-200 hover:border-primary transition-all duration-300 p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -57,6 +59,7 @@ const JobCard = ({ job }) => {
           </Button>
         </div>
       </Card>
+      </Link>
     </div>
   );
 };
