@@ -1,13 +1,24 @@
+import { getCompany } from "@/lib/api/company";
 import { getCompanyJobs } from "@/lib/api/jobs";
+import { getUser } from "@/lib/core/session";
 import { Button, Chip, Table } from "@heroui/react";
 import React from "react";
 import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
 
 const JobsPage = async () => {
-  const companyId = "company_123";
+
+  const session = await getUser();
+  const user = session?.user;
+  const userId = user?.id;
+
+  const company = await getCompany(userId);
+  const companyInfo = company[0];
+
+  const companyId = companyInfo._id;
+  console.log(companyId)
 
   const jobs = await getCompanyJobs(companyId);
-  console.log(jobs);
+
 
   return (
     <div className="p-4">

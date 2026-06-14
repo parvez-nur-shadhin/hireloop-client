@@ -1,53 +1,79 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@heroui/react";
 import { IoLocationOutline, IoCloudUploadOutline } from "react-icons/io5";
 import { addJobs } from "@/lib/actions/jobs";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { getCompany } from "@/lib/api/company";
+import { getUser } from "@/lib/core/session";
 
 export default function AddJobs() {
-const {
-  register,
-  handleSubmit,
-  formState: { errors },
-} = useForm({
-  defaultValues: {
-    jobTitle: "",
-    jobCategory: "technology",
-    jobType: "full-time",
-    minSalary: "",
-    maxSalary: "",
-    currency: "USD",
-    location: "",
-    deadline: "",
-    responsibilities: "",
-    requirements: "",
-    benefits: "",
-    isRemote: false,
-    status: "active",
-    isPubliclyVisible: true,
-  },
-});
+  const { data: session } = authClient.useSession();
 
-const onSubmit = async (data) => {
-  const jobData = {
-    ...data,
-    minSalary: Number(data.minSalary),
-    maxSalary: Number(data.maxSalary),
-    companyId: "company_123", // replace with logged-in company id
-    status: "active",
+  const [company, setCompany] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCompany = async () => {
+      if (!session?.user?.id) return;
+
+      try {
+        const data = await getCompany(session.user.id);
+        setCompany(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCompany();
+  }, [session]);
+
+  const companyID = company[0]?._id;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      jobTitle: "",
+      jobCategory: "technology",
+      jobType: "full-time",
+      minSalary: "",
+      maxSalary: "",
+      currency: "USD",
+      location: "",
+      deadline: "",
+      responsibilities: "",
+      requirements: "",
+      benefits: "",
+      isRemote: false,
+      status: "active",
+      isPubliclyVisible: true,
+    },
+  });
+
+  const onSubmit = async (data) => {
+    const jobData = {
+      ...data,
+      minSalary: Number(data.minSalary),
+      maxSalary: Number(data.maxSalary),
+      companyId: companyID, // replace with logged-in company id
+      status: "active",
+    };
+
+    const res = await addJobs(jobData);
+
+    if (res.insertedId) {
+      toast.success("Job Posted Successfully");
+      redirect("/");
+    }
   };
-  
-  const res = await addJobs(jobData);
-
-  if (res.insertedId) {
-    toast.success("Job Posted Successfully");
-    redirect("/");
-  }
-};
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#0a0a0a] p-4 text-foreground selection:bg-neutral-800">

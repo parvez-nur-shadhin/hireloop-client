@@ -14,10 +14,10 @@ function Navbar() {
   const links = (
     <>
       <li>
-        <Link href="#">Browse Jobs</Link>
+        <Link href="/jobs">Browse Jobs</Link>
       </li>
       <li>
-        <Link href="#">Company</Link>
+        <Link href="#">Companies</Link>
       </li>
       <li>
         <Link href="#">Pricing</Link>
