@@ -15,7 +15,6 @@ const JobsPage = async () => {
   const companyInfo = company[0];
 
   const companyId = companyInfo._id;
-  console.log(companyId)
 
   const jobs = await getCompanyJobs(companyId);
 

@@ -37,8 +37,6 @@ const SignUpPage = () => {
       role: role,
       callbackURL: "/",
     });
-
-    console.log(res, error);
   };
 
   return (

@@ -34,6 +34,7 @@ export default function AddJobs() {
   }, [session]);
 
   const companyID = company[0]?._id;
+  const companyNAME = company[0]?.companyName;;
 
   const {
     register,
@@ -63,7 +64,8 @@ export default function AddJobs() {
       ...data,
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
-      companyId: companyID, // replace with logged-in company id
+      companyId: companyID,
+      companyName: companyNAME,
       status: "active",
     };
 

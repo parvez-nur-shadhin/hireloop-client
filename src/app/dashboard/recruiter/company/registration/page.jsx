@@ -106,7 +106,6 @@ export default function CompanyForm({ company = null }) {
 
   // ✅ Submit
   const onSubmit = async(data) => {
-    console.log("FINAL FORM DATA:", data);
     // send to backend here
 
     const res = await addCompanies(data);
